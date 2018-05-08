@@ -1,0 +1,3843 @@
+@echo off
+color 0f
+Title Game
+echo Loading Game...
+Setlocal enabledelayedexpansion
+ping localhost -n 5 >nul
+:menu
+cls
+echo.
+echo What would you like to do?
+echo.
+echo 1) Start the game
+echo 2) Read Information
+echo 3) Look at Credits
+echo 4) Quit
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto gamePick
+if %c% EQU 2 goto Information
+if %c% EQU 3 goto Credits
+if %c% EQU 4 goto Quit
+goto menu
+
+:gamePick
+cls
+echo.
+echo Which game would you like to start?
+echo.
+echo 1) Campaign
+echo 2) Survival
+echo 3) Challenges (WIP)
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Campaign.start
+if %c% EQU 2 goto newvars
+if %c% EQU 3 goto Pick.Challenge
+goto gamePick
+
+:Information
+cls
+echo.
+echo Welcome to the game!
+echo.
+echo If you need help with any gameplay
+echo you can consult the help page once 
+echo you enter.
+echo.
+echo To navigate, which you have probably 
+echo figured out, just type the number which 
+echo corresponds to the action you wish
+echo to do and press "Enter".
+echo.
+echo This game will be a full fledged text-based
+echo RPG with a Campaign, Different Challenges, Battling, 
+echo leveling, shopping, potions, magic, a skill tree, 
+echo and more.
+echo.
+echo Would you like to start?
+echo.
+echo 1) Start
+echo 2) Credits
+echo 3) Menu
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto gamePick
+if %c% EQU 2 goto Credits
+if %c% EQU 3 goto menu
+goto Information
+
+:Credits
+cls
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo                  Creators
+echo.
+echo                 Dalton Brua
+echo				 Drew Smith
+echo.
+echo.
+echo.
+echo.
+echo.
+echo.
+echo Would you like to start?
+echo.
+echo 1) Start
+echo 2) Information
+echo 3) Menu
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto gamePick
+if %c% EQU 2 goto Information
+if %c% EQU 3 goto menu
+goto Credits
+
+:Quit
+cls
+echo.
+echo Are you sure?
+echo.
+echo 1) Yes
+echo 2) No
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Exit
+if %c% EQU 2 goto menu
+goto Quit
+
+:Campaign.start
+cls
+echo.
+echo Do you wish to start the campaign?
+echo You may choose to save your progress after any mission.
+echo.
+echo 1) Yes
+echo 2) No
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto CampaignM1
+if %c% EQU 2 goto menu
+goto Campaign.start
+
+:CampaignM1
+cls
+echo.
+echo               Introduction
+echo.
+echo	   You are a knight of King Garner's
+echo	   army. You do whatever he tells you
+echo	   to do with accuracy or else be 
+echo	   beheaded. Any choice or mistake you  
+echo	   make may lead to your death.
+echo.
+ping localhost -n 6 >nul
+cls
+echo.
+echo 			  King Garner
+echo.
+echo 		Hey you over there, come here.
+echo.
+ping localhost -n 3 >nul
+cls
+echo.
+echo.
+echo.
+echo 			You walk across the 
+echo 			courtyard wondering what 
+echo 			the King could want from you.
+echo.
+ping localhost -n 4 >nul
+cls
+echo.
+echo				  You
+echo.
+echo		1) Hello Sire.
+echo		2) Your Majesty.
+echo		3) What do you need?
+echo.
+set /p c=Enter: 
+if %c% EQU 1 set /a KingRep += 1
+if %c% EQU 2 set /a KingRep += 2
+if %c% EQU 3 set /a KingRep -= 1
+cls
+echo.
+echo 			   King Garner
+echo.
+if %c% EQU 1 echo			Good day to you. I need you to
+if %c% EQU 1 echo			check on the farms outside the walls.
+if %c% EQU 1 echo			I have reason to believe they will be
+if %c% EQU 1 echo			attacked within the next few days.
+if %c% EQU 1 echo			Do not tell anyone you heard this.
+if %c% EQU 2 echo			Good day Sir. I need you to check
+if %c% EQU 2 echo			on the farms outside the castle
+if %c% EQU 2 echo			walls. I think they may be attacked
+if %c% EQU 2 echo			soon. Do not tell anyone you heard this.
+if %c% EQU 3 echo			Do not speak to me like that. I am your 
+if %c% EQU 3 echo			King you will do what I say. Go check on
+if %c% EQU 3 echo			the farms outside the walls, they may
+if %c% EQU 3 echo			be attacked. Do not tell anyone I told
+if %c% EQU 3 echo			you this.
+ping localhost -n 6 >nul
+cls
+echo.
+echo				You
+echo.
+echo		1) Yes Sire.
+echo		2) Yes Your Majesty.
+echo		3) Ok.
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 set /a KingRep +=1
+if %c% EQU 2 set /a KingRep +=2
+cls
+set CamGold=0
+set Guilt=0
+echo.
+echo			You start walking down the stone road.
+echo			You hear a loud crash come from a
+echo			store you are walking near. What do
+echo			you do?
+echo.
+echo			1) Investigate
+echo			2) Call for Help
+echo			3) Keep Walking
+echo.
+set /p MajChoice1=Enter: 
+
+if %MajChoice1% EQU 1 set /a CamGold+=5
+if %MajChoice1% EQU 2 set /a Guilt+=1
+if %MajChoice1% EQU 3 set /a Guilt+=2
+cls
+echo.
+if %MajChoice1% EQU 1 echo			You walk over and start looking around to 
+if %MajChoice1% EQU 1 echo			see what could have made that crash.
+if %MajChoice1% EQU 2 echo			You call for help. Turns out someone was
+if %MajChoice1% EQU 2 echo			around and is now going into the store.
+if %MajChoice1% EQU 3 echo			You keep walking forgetting about the
+if %MajChoice1% EQU 3 echo			big crash.
+ping localhost -n 5 >nul
+cls
+echo.
+if %MajChoice1% EQU 1 echo			Turns out the store owner tripped on
+if %MajChoice1% EQU 1 echo			one of their display cases and it
+if %MajChoice1% EQU 1 echo			tumbled. They give you five gold for
+if %MajChoice1% EQU 1 echo			your kindness. You start walking again
+if %MajChoice1% EQU 1 echo			and arrive at the farms.
+if %MajChoice1% EQU 2 echo			A little ways along the path you
+if %MajChoice1% EQU 2 echo			begin feeling guilty, like you could
+if %MajChoice1% EQU 2 echo			have done something more. But no time
+if %MajChoice1% EQU 2 echo			to think about that, you have arrived
+if %MajChoice1% EQU 2 echo			at the farms.
+if %MajChoice1% EQU 3 echo			While walking down the path you realize
+if %MajChoice1% EQU 3 echo			you could have done much more to help
+if %MajChoice1% EQU 3 echo			the store owner, but you have arrived
+if %MajChoice1% EQU 3 echo			at the farms. So you can't think about 
+if %MajChoice1% EQU 3 echo			that now.
+ping localhost -n 7 >nul
+cls
+echo.
+echo			Upon seeing the farms you can tell
+echo			everyone here was probably safe, and 
+echo			no one was being attacked. However,
+echo			you do realize there are no people to
+echo			be seen. You know for a fact all farmers
+echo			should be working right now. All crop
+echo			fields were emptied of people, and no
+echo			lights were on in any of the houses.
+ping localhost -n 9 >nul
+cls
+set Mystery=0
+echo.
+echo			You don't see anyone and have no idea
+echo			what you should do. Should you investigate
+echo			a house and see if your eyes are decieving 
+echo			you? Should you walk to the fields and 
+echo			Investigate the crops? Or should you run 
+echo			and tell the King?
+echo.
+echo			1) Investigate House
+echo			2) Investigate Fields
+echo			3) Tell King
+echo.
+set /p MajC2=Enter: 
+if %MajC2% EQU 1 set /a Mystery+=1
+if %MajC2% EQU 2 set /a Mystery+=2
+if %MajC2% EQU 3 set /a KingRep+=1
+if %MajC2% EQU 3 goto CampaignM1P2 
+cls
+echo.
+if %MajC2% EQU 1 echo			You enter one of the houses and
+if %MajC2% EQU 1 echo			hear nothing. You walk to an open
+if %MajC2% EQU 1 echo			door, light a lamp, look through,
+if %MajC2% EQU 1 echo			but still, nothing.
+if %MajC2% EQU 2 echo			You begin walking towards the crop
+if %MajC2% EQU 2 echo			fields. Everything at the crop fields
+if %MajC2% EQU 2 echo			has been burnt. It all smells like rot
+if %MajC2% EQU 2 echo			and you have no idea why.
+ping localhost -n 6 >nul
+cls
+echo			You don't see anyone and have no idea
+echo			what you should do. 
+if %MajC2% EQU 1 echo			Should you walk to the fields and
+if %MajC2% EQU 1 echo			Investigate the crops?
+if %MajC2% EQU 2 echo			Should you investigate a house and see
+if %MajC2% EQU 2 echo			if your eyes are decieving you?
+echo			Or should you run and tell the King?
+echo.
+if %MajC2% EQU 2 echo			1) Investigate House
+if %MajC2% EQU 1 echo			2) Investigate Fields
+echo			3) Tell King
+echo.
+set /p MajC2=Enter:
+if %MajC2% EQU 1 set /a Mystery+=1
+if %MajC2% EQU 2 set /a Mystery+=2
+if %MajC2% EQU 3 set /a KingRep+=1
+if %MajC2% EQU 3 goto CampaignM1P2
+cls
+echo.
+if %MajC2% EQU 1 echo			You enter one of the houses and
+if %MajC2% EQU 1 echo			hear nothing. You walk to an open
+if %MajC2% EQU 1 echo			door, light a lamp, look through,
+if %MajC2% EQU 1 echo			but still, nothing.
+if %MajC2% EQU 2 echo			You begin walking towards the crop
+if %MajC2% EQU 2 echo			fields. Everything at the crop fields
+if %MajC2% EQU 2 echo			has been burnt. It all smells like rot
+if %MajC2% EQU 2 echo			and you have no idea why.
+cls
+echo			You don't see anyone and have no idea
+echo			what you should do. Should you run
+echo			and tell the King?
+echo.
+echo			3) Tell King
+echo.
+set /p MajC2=Enter: 
+if %MajC2% EQU 3 set /a KingRep+=1
+if %MajC2% EQU 3 goto CampaignM1P2
+pause 
+
+:newvars
+cls
+set HP=100
+set MaxHP=100
+set Dmg=20
+set Atk=20
+set Gold=0
+set Mana=100
+set goldEarned=0
+set Level=0
+set SkillPoints=0
+set xp=0
+set xptill=10
+set xpEarned=0
+set Energy=100
+set MaxEnergy=100
+set Dodgeskill=99
+set Bread=0
+set Potatos=0
+set Oranges=0
+set Apples=0
+set Stew=0
+set Trollskin=0
+set GiantsEye=0
+set MagicResidue=0
+set MagicCloth=0
+set WaterEssence=0
+set RottedFlesh=0
+set Ectoplasm=0
+set Bodycount=0
+set trollsKilled=0
+set giantsKilled=0
+set sorcerersKilled=0
+set magesKilled=0
+set elementalsKilled=0
+set zombiesKilled=0
+set ghostsKilled=0
+set WeaponE=Nothing
+set WeaponD=0
+set FistKills=0
+set DaggerD=30
+set DaggerB=No
+set DaggerE=No
+set DaggerKills=0
+set SwordD=45
+set SwordB=No
+set SwordE=No
+set SwordKills=0
+set SpearD=65
+set SpearB=No
+set SpearE=No
+set SpearKills=0
+set WarhammerD=90
+set WarhammerB=No
+set WarhammerE=No
+set WarhammerKills=0
+set BattleaxeD=120
+set BattleaxeB=No
+set BattleaxeE=No
+set BattleaxeKills=0
+set StrengthP=0
+set HealthP=0
+set SpeedP=0
+set ManaP=0
+set StrengthPUse=No
+set SpeedPUse=No
+set PureDSpellB=No
+set FreezeSpellB=No
+set FireSpellB=No
+set PureDSpellUse=No
+set FreezeSpellUse=No
+set FireSpellUse=No
+set FreezeroundsLeft=0
+set FireRoundsLeft=0
+set PureDSpellTier=0
+set FreezeSpellTier=0
+set FireSpellTier=0
+set Armor=0
+set HelmA=0
+set HelmE=None
+set ChestA=0
+set ChestE=None
+set LegsA=0
+set LegsE=None
+set BootsA=0
+set BootsE=None
+set HideHelmA=20
+set HideHelmB=No
+set HideHelmE=No
+set BronzeHelmA=45
+set BronzeHelmB=No
+set BronzeHelmE=No
+set IronHelmA=75
+set IronHelmB=No
+set IronHelmE=No
+set DragonHelmA=95
+set DragonHelmB=No
+set DragonHelmE=No
+set EnergyHelmA=125
+set EnergyHelmB=No
+set EnergyHelmE=No
+set HideChestA=40
+set HideChestB=No
+set HideChestE=No
+set BronzeChestA=85
+set BronzeChestB=No
+set BronzeChestE=No
+set IronChestA=130
+set IronChestB=No
+set IronChestE=No
+set DragonChest=175
+set DragonChestB=No
+set DragonChestE=No
+set EnergyChestA=220
+set EnergyChestB=No
+set EnergyChestE=No
+set HideLegsA=30
+set HideLegsB=No
+set HideLegsE=No
+set BronzeLegsA=55
+set BronzeLegsB=No
+set BronzeLegsE=No
+set IronLegsA=90
+set IronLegsB=No
+set IronLegsE=No
+set DragonLegsA=125
+set DragonLegsB=No
+set DragonLegsE=No
+set EnergyLegsA=160
+set EnergyLegsB=No
+set EnergyLegsE=No
+set HideBootsA=15
+set HideBootsB=No
+set HideBootsE=No
+set BronzeBootsA=35
+set BronzeBootsB=No
+set BronzeBootsE=No
+set IronBootsA=65
+set IronBootsB=No
+set IronBootsE=No
+set DragonBootsA=85
+set DragonBootsB=No
+set DragonBootsE=No
+set EnergyBootsA=110
+set EnergyBootsB=No
+set EnergyBootsE=No
+goto startgame
+
+:startgame
+cls
+echo.
+echo Hello Traveler!
+echo What is your name?
+echo.
+set /p Name=Enter: 
+cls
+echo.
+echo Ok %Name% the castle is that way!
+echo.
+echo 1) Ok
+echo 2) I'm not going to the castle.
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto startalt
+goto startgame
+
+:startalt
+cls
+echo.
+echo Oh well, nice to meet you %Name%!
+echo.
+echo 1) Go to the castle
+echo 2) Go into forest
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Nope
+goto startalt
+
+:Nope
+cls
+echo.
+echo You died.
+echo Why would you go into the forest alone and without a weapon.
+echo.
+echo 1) Restart
+echo 2) Menu
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto startgame
+if %c% EQU 2 goto menu
+goto Nope
+
+:Home
+set /a Dodgedisplay=100-%Dodgeskill%
+cls
+echo Gold: %Gold% \ Health: %HP% \ Mana: %Mana%
+echo Level: %Level% \ XP Until Next Level Up: %xptill%
+echo.
+echo Welcome Home %Name%!
+echo What would you like to do?
+echo.
+echo 1) Wage Epic Battles
+echo 2) Go Shopping
+echo 3) Check Inventory
+echo 4) Skills
+echo 5) Help
+echo 6) Sleep
+echo 7) Exit
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Prebattle
+if %c% EQU 2 goto Merchant
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Skills
+if %c% EQU 5 goto Help.Screen
+if %c% EQU 6 goto Save
+if %c% EQU 7 goto menu
+goto Home
+
+:Save
+echo.
+echo What would you like your save to be called?
+echo.
+set /p saveName=Enter: 
+)
+echo Name=%Name%
+echo HP=%HP%
+echo MaxHP=%MaxHP%
+echo Dmg=%Dmg%
+echo Atk=%Atk%
+echo Gold=%Gold%
+echo Mana=%Mana%
+echo goldEarned=%goldEarned%
+echo Level=%Level%
+echo SkillPoints=%Skillpoints%
+echo xp=%xp%
+echo xptill=%xptill%
+echo xpEarned=%xpEarned%
+echo Energy=%Energy%
+echo MaxEnergy=%MaxEnergy%
+echo Dodgeskill=%Dodgeskill%
+echo Bread=%Bread%
+echo Potatos=%Potatos%
+echo Oranges=%Oranges%
+echo Apples=%Apples%
+echo Stew=%Stew%
+echo Trollskin=%Trollskin%
+echo GiantsEye=%GiantsEye%
+echo MagicResidue=%MagicResidue%
+echo MagicCloth=%MagicCloth%
+echo WaterEssence=%WaterEssence%
+echo RottedFlesh=%RottedFlesh%
+echo Ectoplasm=%Ectoplasm%
+echo Bodycount=%Bodycount%
+echo trollsKilled=%trollsKilled%
+echo giantsKilled=%giantsKilled%
+echo sorcerersKilled=%sorcerersKilled%
+echo magesKilled=%magesKilled%
+echo elementalsKilled=%elementalsKilled%
+echo zombiesKilled=%zombiesKilled%
+echo ghostsKilled=%ghostsKilled%
+echo WeaponE=%WeaponE%
+echo WeaponD=%WeaponD%
+echo FistKills=%FistKills%
+echo DaggerD=30
+echo DaggerB=%DaggerB%
+echo DaggerE=%DaggerE%
+echo DaggerKills=%DaggerKills%
+echo SwordD=45
+echo SwordB=%SwordB%
+echo SwordE=%SwordE%
+echo SwordKills=%SwordKills%
+echo SpearD=65
+echo SpearB=%SpearB%
+echo SpearE=%SpearE%
+echo SpearKills=%SpearKills%
+echo WarhammerD=90
+echo WarhammerB=%WarhammerB%
+echo WarhammerE=%WarhammerE%
+echo WarhammerKills=%WarhammerKills%
+echo BattleaxeD=120
+echo BattleaxeB=%BattleaxeB%
+echo BattleaxeE=%BattleaxeE%
+echo BattleaxeKills=%BattleaxeKills%
+echo StrengthP=%StrengthP%
+echo HealthP=%HealthP%
+echo SpeedP=%SpeedP%
+echo ManaP=%ManaP%
+echo StrengthPUse=No
+echo SpeedPUse=No
+echo PureDSpellB=%PureDSpellB%
+echo FreezeSpellB=%FreezeSpellB%
+echo FireSpellB=%FireSpellB%
+echo PureDSpellUse=No
+echo FreezeSpellUse=No
+echo FireSpellUse=No
+echo FreezeroundsLeft=0
+echo FireRoundsLeft=0
+echo PureDSpellTier=%PureDSpellTier%
+echo FreezeSpellTier=%FreezeSpellTier%
+echo FireSpellTier=%FireSpellTier%
+echo Armor=%Armor%
+echo HelmA=%HelmA%
+echo HelmE=%HelmE%
+echo ChestA=%ChestA%
+echo ChestE=%ChestE%
+echo LegsA=%LegsA%
+echo LegsE=%LegsE%
+echo BootsA=%BootsA%
+echo BootsE=%BootsE%
+echo HideHelmA=20
+echo HideHelmB=%HideHelmB%
+echo HideHelmE=%HideHelmE%
+echo BronzeHelmA=45
+echo BronzeHelmB=%BronzeHelmB%
+echo BronzeHelmE=%BronzeHelmE%
+echo IronHelmA=75
+echo IronHelmB=%IronHelmB%
+echo IronHelmE=%IronHelmE%
+echo DragonHelmA=95
+echo DragonHelmB=%DragonHelmB%
+echo DragonHelmE=%DragonHelmE%
+echo EnergyHelmA=125
+echo EnergyHelmB=%EnergyHelmB%
+echo EnergyHelmE=%EnergyHelmE%
+echo HideChestA=40
+echo HideChestB=%HideChestB%
+echo HideChestE=%HideChestE%
+echo BronzeChestA=85
+echo BronzeChestB=%BronzeChestB%
+echo BronzeChestE=%BronzeChestE%
+echo IronChestA=130
+echo IronChestB=%IronChestB%
+echo IronChestE=%IronChestE%
+echo DragonChest=175
+echo DragonChestB=%DragonChestB%
+echo DragonChestE=%DragonChestE%
+echo EnergyChestA=220
+echo EnergyChestB=%EnergyChestB%
+echo EnergyChestE=%EnergyChestE%
+echo HideLegsA=30
+echo HideLegsB=%HideLegsB%
+echo HideLegsE=%HideLegsE%
+echo BronzeLegsA=55
+echo BronzeLegsB=%BronzeLegsB%
+echo BronzeLegsE=%BronzeLegsE%
+echo IronLegsA=90
+echo IronLegsB=%IronLegsB%
+echo IronLegsE=%IronLegsE%
+echo DragonLegsA=125
+echo DragonLegsB=%DragonLegsB%
+echo DragonLegsE=%DragonLegsE%
+echo EnergyLegsA=160
+echo EnergyLegsB=%EnergyLegsB%
+echo EnergyLegsE=%EnergyLegsE%
+echo HideBootsA=15
+echo HideBootsB=%HideBootsB%
+echo HideBootsE=%HideBootsE%
+echo BronzeBootsA=35
+echo BronzeBootsB=%BronzeBootsB%
+echo BronzeBootsE=%BronzeBootsE%
+echo IronBootsA=65
+echo IronBootsB=%IronBootsB%
+echo IronBootsE=%IronBootsE%
+echo DragonBootsA=85
+echo DragonBootsB=%DragonBootsB%
+echo DragonBootsE=%DragonBootsE%
+echo EnergyBootsA=110
+echo EnergyBootsB=%EnergyBootsB%
+echo EnergyBootsE=%EnergyBootsE%
+)>%saveName%.txt
+cls
+echo.
+echo You have successfully saved your game!
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Shop
+echo 4) Inventory
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto Inventory
+goto Home
+
+:Help.Screen
+cls
+echo.
+echo What would you like help with?
+echo.
+echo 1) Getting Started
+echo 2) Battling
+echo 3) Shopping
+echo 4) Inventory
+echo 5) Leveling
+echo 6) Skills
+echo 7) Magic
+echo 8) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto GettingStarted.Help
+if %c% EQU 2 goto Battling.Help
+if %c% EQU 3 goto Shopping.Help
+if %c% EQU 4 goto Inventory.Help
+if %c% EQU 5 goto Leveling.Help
+if %c% EQU 6 goto Skills.Help
+if %c% EQU 7 goto Magic.Help
+if %c% EQU 8 goto Home
+goto Help.Screen
+
+:GettingStarted.Help
+cls
+echo.
+echo To get started we recommend Fighting Monsters until you
+echo have 20 Health. Once you have 20 Health go to the shop
+echo and buy as much bread as you can. Repeat this until level 2
+echo After that do whatever you want with your money. Just 
+echo remember to watch your Health!
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Shop
+echo 4) Inventory
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto Inventory
+if %c% EQU 5 goto Help.Screen
+goto GettingStarted.Help
+
+:Battling.Help
+cls
+echo.
+echo To battle monsters press "1" while at home. You can then
+echo use weapons, potions, and magic to fight the enemy at
+echo your will. Your Health and the Enemy Health is displayed
+echo on the top of the screen. 
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Shop
+echo 4) Inventory
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto Inventory
+if %c% EQU 5 goto Help.Screen
+goto Battling.Help
+
+:Shopping.Help
+cls
+echo.
+echo Press "2" while you are at home to access the shop.
+echo When you access the shop you will be given many choices.
+echo Go to the place which you hope to buy out of that category.
+echo If you want a Weapon press "1", or if you want Armor press "2"
+echo Your gold will be displayed at the top of every shop window.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Shop
+echo 3) Inventory
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter:
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Merchant
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto PreBattle
+if %c% EQY 5 goto Help.Screen
+goto Shopping.Help
+
+:Inventory.Help
+cls
+echo.
+echo Press "3" while you are at home to access your Inventory.
+echo When you access your Inventory you will be given many choices.
+echo Go to the place which you hope look at by pressing the corresponding number.
+echo If you want to look at Weapons, press "1". If you want to eat
+echo Food press "3". In the Inventory you can Eat Food, Equip Weapons,
+echo Equip Armor, Open your Spellbook and view your Potions.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shop
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto Help.Screen
+goto Inventory.Help
+
+:Skills.Help
+cls
+echo.
+echo Press "4" while you are at home to access your skills.
+echo When you access your skills you will be given a few choices.
+echo Go to the skill you would like to increase. If you want to train
+echo attacking press "1". If you want to train dodging Press "2". Every
+echo time you try and increase a skill it will use Energy. It will not
+echo increase everytime. Each different skill will use a different 
+echo amount of Energy.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Skills
+echo 3) Shop
+echo 4) Inventory
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Skills
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto Inventory
+if %c% EQU 5 goto Help.Screen
+goto Skills.Help
+
+:Merchant
+cls
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Weapons Shop
+echo 2) Armor Shop
+echo 3) Food Shop
+echo 4) Potions Shop
+echo 5) Spell Shop
+echo 6) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Weapons.Shop
+if %c% EQU 2 goto Armor.Shop
+if %c% EQU 3 goto Food.Shop
+if %c% EQU 4 goto Potions.Shop
+if %c% EQU 5 goto Magic.Shop
+if %c% EQU 6 goto Home
+goto Merchant
+
+:Weapons.Shop
+set destination=Weapons.Shop
+cls
+echo Gold: %Gold%
+echo.
+echo This is the Weapon Shop!
+echo What would you like to buy?
+echo.
+echo 1) Dagger[$75](30 Damage)
+echo 2) Sword[$150(45 Damage)
+echo 3) Spear[$225](65 Damage)
+echo 4) Warhammer[$300](90 Damage)
+echo 5) Battleaxe[$375](120 Damage)
+echo 6) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Dagger.Buy
+if %c% EQU 2 goto Sword.Buy
+if %c% EQU 3 goto Spear.Buy
+if %c% EQU 4 goto Warhammer.Buy
+if %c% EQU 5 goto Battleaxe.Buy
+if %c% EQU 6 goto Merchant
+goto Weapons.Shop
+
+:Dagger.Buy
+cls
+if %Gold% LEQ 74 goto NEM
+echo.
+set /a Gold-=75
+set DaggerB=Yes
+echo You have bought the Dagger for 75 Gold!
+echo Remember to Equip it in your Inventory!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Fight
+echo 4) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto PreBattle
+if %c% EQU 4 goto %destination%
+goto %destination%
+
+:Sword.Buy
+cls
+if %Gold% LEQ 149 goto NEM
+echo.
+set /a Gold-=150
+set SwordB=Yes
+echo You have bought the Sword for 150 Gold!
+echo Remember to Equip it in your Inventory!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Fight
+echo 4) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto PreBattle
+if %c% EQU 4 goto %destination%
+goto %destination%
+
+:Spear.Buy
+cls
+if %Gold% LEQ 224 goto NEM
+echo.
+set /a Gold-=225
+set SpearB=Yes
+echo You have bought the Spear for 225 Gold!
+echo Remember to Equip it in your Inventory!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Fight
+echo 4) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto PreBattle
+if %c% EQU 4 goto %destination%
+goto %destination%
+
+:Warhammer.Buy
+cls
+if %Gold% LEQ 299 goto NEM
+echo.
+set /a Gold-=300
+set WarhammerB=Yes
+echo You have bought the Warhamnmer for 300 Gold!
+echo Remember to Equip it in your Inventory!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Fight
+echo 4) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto PreBattle
+if %c% EQU 4 goto %destination%
+goto %destination%
+
+:Battleaxe.Buy
+cls
+if %Gold% LEQ 374 goto NEM
+echo.
+set /a Gold-=375
+set BattleaxeB=Yes
+echo You have bought the Battleaxe for 375 Gold!
+echo Remember to Equip it in your Inventory!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Fight
+echo 4) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto PreBattle
+if %c% EQU 4 goto %destination%
+goto %destination%
+
+:Armor.Shop
+cls
+echo Gold: %Gold%
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Helmet Shop
+echo 2) Chestpiece Shop
+echo 3) Leggings Shop
+echo 4) Boots Shop
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Helmets.Shop
+if %c% EQU 2 goto Chestpiece.Shop
+if %c% EQU 3 goto Leggings.Shop
+if %c% EQU 4 goto Boots.Shop
+if %c% EQU 5 goto Merchant
+goto Armor.Shop
+
+:Helmets.Shop
+set destination=Helmets.Shop
+cls
+echo Gold: %Gold%
+echo.
+echo What would you like to buy?
+echo.
+echo 1) Hide Helmet ($100)[20 Armor]
+echo 2) Bronze Helmet ($200)[45 Armor]
+echo 3) Iron Helmet ($300) [70 Armor]
+echo 4) Dragon Scale Helmet ($400)[95 Armor]
+echo 5) Energy Helmet($500)[120 Armor]
+echo 6) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto HideHelm.Buy
+if %c% EQU 2 goto BronzeHelm.Buy
+if %c% EQU 3 goto IronHelm.Buy
+if %c% EQU 4 goto DragonHelm.Buy
+if %c% EQU 5 goto EnergyHelm.Buy
+if %c% EQU 6 goto Armor.Inv
+goto Helmets.Inv
+
+:HideHelm.Buy
+cls
+if %Gold% LEQ 99 goto NEM
+if %HideHelmB% EQU Yes goto AB 
+set /a Gold-=100
+set HideHelmB=Yes
+echo.
+echo You have bought the Hide Helmet!
+echo Once you Equip it you will get 20 extra Armor!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shopping
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:BronzeHelm.Buy
+cls
+if %Gold% LEQ 199 goto NEM
+if %BronzeHelmB% EQU Yes goto AB 
+set /a Gold-=200
+set BronzeHelmB=Yes
+echo.
+echo You have bought the Bronze Helmet!
+echo Once you Equip it you will get 45 extra Armor!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shopping
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:IronHelm.Buy
+cls
+if %Gold% LEQ 299 goto NEM
+if %IronHelmB% EQU Yes goto AB 
+set /a Gold-=300
+set IronHelmB=Yes
+echo.
+echo You have bought the Iron Helmet!
+echo Once you Equip it you will get 70 extra Armor!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shopping
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:DragonHelm.Buy
+cls
+if %Gold% LEQ 399 goto NEM
+if %DragonHelmB% EQU Yes goto AB 
+set /a Gold-=400
+set DragonHelmB=Yes
+echo.
+echo You have bought the Dragon Scale Helmet!
+echo Once you Equip it you will get 95 extra Armor!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shopping
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:EnergyHelm.Buy
+cls
+if %Gold% LEQ 499 goto NEM
+if %EnergyHelmB% EQU Yes goto AB 
+set /a Gold-=500
+set EnergyHelmB=Yes
+echo.
+echo You have bought the Energy Helmet!
+echo Once you Equip it you will get 120 extra Armor!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shopping
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:Chestpiece.Shop
+set destination=Chestpiece.Shop
+cls
+echo Gold: %Gold%
+echo.
+echo What would you like to buy?
+echo.
+echo 1) Hide Chestpiece ($150)[40 Armor]
+echo 2) Bronze Chestpiece ($300)[85 Armor]
+echo 3) Iron Chestpiece ($450)[130 Armor]
+echo 4) Dragon Scale Chestpiece ($600)[175 Armor]
+echo 5) Energy Chestpiece ($750)[220 Armor]
+echo 6) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto HideChest.Buy
+if %c% EQU 2 goto BronzeChest.Buy
+if %c% EQU 3 goto IronChest.Buy
+if %c% EQU 4 goto DragonChest.Buy
+if %c% EQU 5 goto EnergyChest.Buy
+if %c% EQU 6 goto Armor.Shop
+goto Chestpiece.Shop
+
+:HideChest.Buy
+cls
+if %Gold% LEQ 149 goto NEM
+if %HideChestB% EQU Yes goto AB 
+set /a Gold-=150
+set HideChestB=Yes
+echo.
+echo You have bought the Hide Chestpiece!
+echo Once you Equip it you will get 40 extra Armor!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shopping
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:BronzeChest.Buy
+cls
+if %Gold% LEQ 299 goto NEM
+if %BronzeChestB% EQU Yes goto AB 
+set /a Gold-=300
+set BronzeChestB=Yes
+echo.
+echo You have bought the Bronze Chestpiece!
+echo Once you Equip it you will get 85 extra Armor!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shopping
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:IronChest.Buy
+cls
+if %Gold% LEQ 449 goto NEM
+if %IronChestB% EQU Yes goto AB 
+set /a Gold-=450
+set IronChestB=Yes
+echo.
+echo You have bought the Iron Chestpiece!
+echo Once you Equip it you will get 130 extra Armor!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shopping
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:DragonChest.Buy
+cls
+if %Gold% LEQ 599 goto NEM
+if %DragonChestB% EQU Yes goto AB 
+set /a Gold-=600
+set DragonChestB=Yes
+echo.
+echo You have bought the Dragon Chestpiece!
+echo Once you Equip it you will get 175 extra Armor!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shopping
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:EnergyChest.Buy
+cls
+if %Gold% LEQ 749 goto NEM
+if %EnergyChestB% EQU Yes goto AB 
+set /a Gold-=750
+set EnergyChestB=Yes
+echo.
+echo You have bought the Energy Chestpiece!
+echo Once you Equip it you will get 220 extra Armor!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shopping
+echo 4) Fight
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:Food.Shop
+cls
+echo Gold: %Gold%
+echo.
+echo What would you like to buy?
+echo.
+echo 1) Bread \ $15 \ 20 Health \ 15 Energy
+echo 2) Potato \ $25 \ 40 Health \ 35 Energy
+echo 3) Orange \ $35 \ 55 Health \ 45 Energy
+echo 4) Apple \ $45 \ 75 Health \ 60 Energy
+echo 5) Stew \ $60 \ 100 Health \ 80 Energy
+echo 6) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Bread.Buy
+if %c% EQU 2 goto Potato.Buy
+if %c% EQU 3 goto Orange.Buy
+if %c% EQU 4 goto Apple.Buy
+if %c% EQU 5 goto Stew.Buy
+if %c% EQU 6 goto Merchant
+goto Food.Shop
+
+:Bread.Buy
+cls
+echo.
+echo How many would you like to buy?
+echo.
+echo 1) 1
+echo 2) 2
+echo 3) 3
+echo 4) 4
+echo 5) 5 
+echo 6) 6
+echo 7) 7 
+echo 8) 8
+echo 9) Back
+echo.
+set /p amount=Enter: 
+set /a minCost=%amount%*15-1
+if %Gold% LEQ %minCost% goto NEM
+set /a Gold-=%amount%*15
+set /a Bread+=%amount%
+cls
+echo.
+echo You have bought %amount% Bread!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shop
+echo 4) Fight
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+goto Food.Shop
+
+:Potato.Buy
+cls
+echo.
+echo How many would you like to buy?
+echo.
+echo 1) 1
+echo 2) 2
+echo 3) 3
+echo 4) 4
+echo 5) 5 
+echo 6) 6
+echo 7) 7 
+echo 8) 8
+echo 9) Back
+echo.
+set /p amount=Enter: 
+set /a minCost=%amount%*25-1
+if %Gold% LEQ %minCost% goto NEM
+set /a Gold-=%amount%*25
+set /a Potatos+=%amount%
+cls
+echo.
+echo You have bought %amount% Potato(s)!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shop
+echo 4) Fight
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+goto Food.Shop
+
+:Orange.Buy
+cls
+echo.
+echo How many would you like to buy?
+echo.
+echo 1) 1
+echo 2) 2
+echo 3) 3
+echo 4) 4
+echo 5) 5 
+echo 6) 6
+echo 7) 7 
+echo 8) 8
+echo 9) Back
+echo.
+set /p amount=Enter: 
+set /a minCost=%amount%*35-1
+if %Gold% LEQ %minCost% goto NEM
+set /a Gold-=%amount%*35
+set /a Oranges+=%amount%
+cls
+echo.
+echo You have bought %amount% Orange(s)!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shop
+echo 4) Fight
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+goto Food.Shop
+
+:Apple.Buy
+cls
+echo.
+echo How many would you like to buy?
+echo.
+echo 1) 1
+echo 2) 2
+echo 3) 3
+echo 4) 4
+echo 5) 5 
+echo 6) 6
+echo 7) 7 
+echo 8) 8
+echo 9) Back
+echo.
+set /p amount=Enter: 
+set /a minCost=%amount%*45-1
+if %Gold% LEQ %minCost% goto NEM
+set /a Gold-=%amount%*45
+set /a Apples+=%amount%
+cls
+echo.
+echo You have bought %amount% Apple(s)!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shop
+echo 4) Fight
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+goto Food.Shop
+
+:Stew.Buy
+cls
+echo.
+echo How many would you like to buy?
+echo.
+echo 1) 1
+echo 2) 2
+echo 3) 3
+echo 4) 4
+echo 5) 5 
+echo 6) 6
+echo 7) 7 
+echo 8) 8
+echo 9) Back
+echo.
+set /p amount=Enter: 
+set /a minCost=%amount%*60-1
+if %Gold% LEQ %minCost% goto NEM
+set /a Gold-=%amount%*60
+set /a Stew+=%amount%
+cls
+echo.
+echo You have bought %amount% Stew!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shop
+echo 4) Fight
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+goto Food.Shop
+
+:Potions.Shop
+cls
+echo Gold: %Gold%
+echo.
+echo What would you like to buy?
+echo.
+echo 1) Strength Potion($50)[Doubles Damage]
+echo 2) Health Potion($30)[50 Health]
+echo 3) Speed Potion($50)[30% Dodge Chance Increase] 
+echo 4) Mana Potion($30)[50 Mana]
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto StrengthP.Buy
+if %c% EQU 2 goto HealthP.Buy
+if %c% EQU 3 goto SpeeedP.Buy
+if %c% EQU 4 goto ManaP.Buy
+goto Potions.Shop
+
+:StrengthP.Buy
+cls
+if %Gold% LEQ 49 goto NEM
+echo.
+set /a StrengthP+=1
+set /a Gold-=50
+echo You have bought a Strength Potion!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight!
+echo 3) Shopping
+echo 4) Inventory
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto Inventory
+goto Potions.Shop
+
+:HealthP.Buy
+cls
+if %Gold% LEQ 29 goto NEM
+echo.
+set /a HealthP+=1
+set /a Gold-=30
+echo You have bought a Health Potion!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight!
+echo 3) Shopping
+echo 4) Inventory
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto Inventory
+goto Potions.Shop
+
+:SpeedP.Buy
+cls
+if %Gold% LEQ 49 goto NEM
+echo.
+set /a SpeedP+=1
+set /a Gold-=50
+echo You have bought a Speed Potion!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight!
+echo 3) Shopping
+echo 4) Inventory
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto Inventory
+goto Potions.Shop
+
+:ManaP.Buy
+cls
+if %Gold% LEQ 29 goto NEM
+echo.
+set /a ManaP+=1
+set /a Gold-=30
+echo You have bought a Mana Potion!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight!
+echo 3) Shopping
+echo 4) Inventory
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto Inventory
+goto Potions.Shop
+
+:Magic.Shop
+cls
+echo Gold: %Gold%
+echo.
+echo What Spell would you like to buy or upgrade?
+echo.
+if %PureDSpellB% EQU No if %Level% GEQ 1 echo 1) Pure Damage Spell \ Does 50 Damage \ 75 Gold
+if %PureDSpellTier% EQU 1 if %Level% GEQ 3 echo 1) Pure Damage Spell Tier 2 Upgrade \ Does 100 Damage \ 150 Gold
+if %PureDSpellTier% EQU 2 if %Level% GEQ 5 echo 1) Pure Damage Spell Tier 3 Upgrade \ Does 150 Damage \ 300 Gold
+if %PureDSpellTier% EQU 3 echo You have Fully Upgraded the Pure Damage Spell!
+if %FreezeSpellB% EQU No if %Level% GEQ 3 echo 2) Freeze Spell \ Freezes Opponent for 2 Rounds \ 150 Gold
+if %FreezeSpellTier% EQU 1 if %Level% GEQ 5 echo 2) Freeze Spell Tier 2 Upgrade \ Freezes Opponent for 3 Rounds \ 300
+if %FreezeSpellTier% EQU 2 if %Level% GEQ 7 echo 2) Freeze Spell Tier 3 Upgrade \ Freezes Opponent for 4 Rounds \ 450
+if %FreezeSpellTier% EQU 3 echo You have Fully Upgraded the Freeze Spell!
+echo 3) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PureDSpell.Buy
+if %c% EQU 2 goto FreezeSpell.Buy
+if %c% EQU 3 goto Merchant
+goto Magic.Shop
+
+:PureDSpell.Buy
+cls
+if %PureDSpellTier% EQU 1 goto PureDSpellTier2.Buy
+if %PureDSpellTier% EQU 2 goto PureDSpellTier3.Buy
+if %PureDSpellTier% EQU 3 goto MaxMagic
+echo.
+echo You have bought the Pure Damage Spell.
+set PureDSpellB=Yes
+if !PureDSpellTier! EQU 0 if !Gold! LEQ 75 (
+	goto NEM
+)
+if !PureDSpellTier! EQU 1 if !Gold! LEQ 149 (
+	goto NEM
+)
+if !PureDSpellTier! EQU 2 if !Gold! LEQ 299 (
+	goto NEM
+)
+if !PureDSpellTier! EQU 0 set /a Gold-=75
+if !PureDSpellTier! EQU 1 set /a Gold-=150
+if !PureDSpellTier! EQU 2 set /a Gold-=300
+set /a PureDSpellTier+=1
+if !PureDSpellTier! EQU 1 echo Whenever you cast it the spell will do 50 extra Damage!
+if !PureDSpellTier! EQU 2 echo Whenever you cast it the spell will do 100 extra Damage!
+if !PureDSpellTier! EQU 3 echo Whenever you cast it the spell will do 150 extra Damage!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Shop
+echo 3) Inventory
+echo 4) Fight
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Merchant
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto PreBattle
+goto Magic.Shop
+
+:MaxMagic
+cls
+echo.
+echo That spell has already been upgraded to the max level!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Shop
+echo 3) Inventory
+echo 4) Fight
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Merchant
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto PreBattle
+goto MaxMagic
+
+:NEM
+cls
+echo.
+echo You do not have enough Gold for that!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Shop
+echo 2) Fight
+echo 3) Home
+echo 4) Inventory
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Merchant
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Home
+if %c% EQU 4 goto Inventory
+goto NEM
+
+:Inventory
+cls
+echo.
+echo What would you like to view?
+echo.
+echo 1) Weapons
+echo 2) Armor
+echo 3) Food
+echo 4) Potions
+echo 5) Magic
+echo 6) Crafting
+echo 7) Stats
+echo 8) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Weapons.Inv
+if %c% EQU 2 goto Armor.Inv
+if %c% EQU 3 goto Food.Inv
+if %c% EQU 4 goto Potions.Inv
+if %c% EQU 5 goto Magic.Inv
+if %c% EQU 6 goto Crafting.Inv
+if %c% EQU 7 goto Stats
+if %c% EQU 8 goto Home
+goto Inventory
+
+:Weapons.Inv
+set destination=Weapons.Inv
+cls
+echo.
+echo Which weapon would you like to look at?
+echo.
+echo 1) Dagger
+echo 2) Sword
+echo 3) Spear
+echo 4) Warhammer
+echo 5) Battleaxe
+echo 6) Unequip Weapons
+echo 7) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Dagger.Inv
+if %c% EQU 2 goto Sword.Inv
+if %c% EQU 3 goto Spear.Inv
+if %c% EQU 4 goto Warhammer.Inv
+if %c% EQU 5 goto Battleaxe.Inv
+if %c% EQU 6 goto Weapons.Unequip
+if %c% EQU 7 goto Inventory
+goto Weapons.Inv
+
+:Dagger.Inv
+set destination=Dagger.Inv
+cls
+echo.
+echo This is everything about your dagger.
+echo.
+echo Equipped: %DaggerE%
+echo Bought: %DaggerB%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Dagger
+echo 2) Buy Dagger
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Dagger.Equip
+if %c% EQU 2 goto Dagger.Buy
+if %c% EQU 3 goto Weapons.Inv
+goto Dagger.Inv
+
+:Sword.Inv
+set destination=Sword.Inv
+cls
+echo.
+echo This is everything about your sword.
+echo.
+echo Equipped: %SwordE%
+echo Bought: %SwordB%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Sword
+echo 2) Buy Sword
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Sword.Equip
+if %c% EQU 2 goto Sword.Buy
+if %c% EQU 3 goto Weapons.Inv
+goto Sword.Inv
+
+:Spear.Inv
+set destination=Spear.Inv
+cls
+echo.
+echo This is everything about your spear.
+echo.
+echo Equipped: %SpearE%
+echo Bought: %SpearB%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Spear
+echo 2) Buy Spear
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Spear.Equip
+if %c% EQU 2 goto Spear.Buy
+if %c% EQU 3 goto Weapons.Inv
+goto Spear.Inv
+
+:Warhammer.Inv
+set destination=Warhammer.Inv
+cls
+echo.
+echo This is everything about your warhammer.
+echo.
+echo Equipped: %WarhammerE%
+echo Bought: %WarhammerB%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Warhammer
+echo 2) Buy Warhammer
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Warhammer.Equip
+if %c% EQU 2 goto Warhammer.Buy
+if %c% EQU 3 goto Weapons.Inv
+goto Warhammer.Inv
+
+:Battleaxe.Inv
+set destination=Battleaxe.Inv
+cls
+echo.
+echo This is everything about your battleaxe.
+echo.
+echo Equipped: %BattleaxeE%
+echo Bought: %BattleaxeB%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Battleaxe
+echo 2) Buy Battleaxe
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Battleaxe.Equip
+if %c% EQU 2 goto Battleaxe.Buy
+if %c% EQU 3 goto Weapons.Inv
+goto Battleaxe.Inv
+
+:Dagger.Equip
+if %DaggerB% EQU No goto DNH
+set destination=Dagger.Equip
+cls
+if %WeaponE% EQU Dagger goto AE
+if %WeaponE% EQU Sword goto Weapon.Unequip
+if %WeaponE% EQU Spear goto Weapon.Unequip
+if %WeaponE% EQU Warhammer goto Weapon.Unequip
+if %WeaponE% EQU Battleaxe goto Weapon.Unequip
+set WeaponE=Dagger
+set WeaponD=%DaggerD%
+set DaggerE=Yes
+set Atk=%DaggerD%
+echo.
+echo You have equipped the Dagger and now do 30 damage!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Fight
+echo 2) Home
+echo 3) Inventory
+echo 4) Shop
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PreBattle
+if %c% EQU 2 goto Home
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:Sword.Equip
+if %SwordB% EQU No goto DNH
+set destination=Sword.Equip
+cls
+if %WeaponE% EQU Dagger goto Weapon.Unequip
+if %WeaponE% EQU Sword goto AE
+if %WeaponE% EQU Spear goto Weapon.Unequip
+if %WeaponE% EQU Warhammer goto Weapon.Unequip
+if %WeaponE% EQU Battleaxe goto Weapon.Unequip
+set WeaponE=Sword
+set WeaponD=%SwordD%
+set SwordE=Yes
+set Atk=%SwordD%
+echo.
+echo You have equipped the Sword and now do 45 damage!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Fight
+echo 2) Home
+echo 3) Inventory
+echo 4) Shop
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PreBattle
+if %c% EQU 2 goto Home
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:Spear.Equip
+if %SpearB% EQU No goto DNH
+set destination=Spear.Equip
+cls
+if %WeaponE% EQU Dagger goto Weapon.Unequip
+if %WeaponE% EQU Sword goto Weapon.Unequip
+if %WeaponE% EQU Spear goto AE
+if %WeaponE% EQU Warhammer goto Weapon.Unequip
+if %WeaponE% EQU Battleaxe goto Weapon.Unequip
+set WeaponE=Spear
+set WeaponD=%SpearD%
+set SpearE=Yes
+set Atk=%SpearD%
+echo.
+echo You have equipped the Spear and now do 65 damage!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Fight
+echo 2) Home
+echo 3) Inventory
+echo 4) Shop
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PreBattle
+if %c% EQU 2 goto Home
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:Warhammer.Equip
+if %WarhammerB% EQU No goto DNH
+set destination=Warhammer.Equip
+cls
+if %WeaponE% EQU Dagger goto Weapon.Unequip
+if %WeaponE% EQU Sword goto Weapon.Unequip
+if %WeaponE% EQU Spear goto Weapon.Unequip
+if %WeaponE% EQU Warhammer goto AE
+if %WeaponE% EQU Battleaxe goto Weapon.Unequip
+set WeaponE=Warhammer
+set WeaponD=%WarhammerD%
+set WarhammerE=Yes
+set Atk=%WarhammerD%
+echo.
+echo You have equipped the Warhammer and now do 90 damage!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Fight
+echo 2) Home
+echo 3) Inventory
+echo 4) Shop
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PreBattle
+if %c% EQU 2 goto Home
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:Battleaxe.Equip 
+if %BattleaxeB% EQU No goto DNH
+set destination=Battleaxe.Equip
+cls
+if %WeaponE% EQU Dagger goto Weapon.Unequip
+if %WeaponE% EQU Sword goto Weapon.Unequip
+if %WeaponE% EQU Spear goto Weapon.Unequip
+if %WeaponE% EQU Warhammer goto Weapon.Unequip
+if %WeaponE% EQU Battleaxe goto AE
+set WeaponE=Battleaxe
+set WeaponD=%BattleaxeD%
+set BattleaxeE=Yes
+set Atk=%BattleaxeD%
+echo.
+echo You have equipped the Battleaxe and now do 120 damage!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Fight
+echo 2) Home
+echo 3) Inventory
+echo 4) Shop
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PreBattle
+if %c% EQU 2 goto Home
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+if %c% EQU 5 goto %destination%
+goto %destination%
+
+:Weapon.Unequip
+cls
+set WeaponE=Nothing
+set DaggerE=No
+set SwordE=No
+set SpearE=No
+set WarhammerE=No
+set BattleaxeE=No
+set Atk=%Dmg%
+set /a WeaponD-=%WeaponD%
+goto %destination%
+
+:Armor.Inv
+cls
+echo Gold: %Gold%
+echo.
+echo What would you like to look at?
+echo.
+echo 1) Helmets
+echo 2) Chestpieces
+echo 3) Leggings
+echo 4) Boots
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Helmets.Inv
+if %c% EQU 2 goto Chestpiece.Inv
+if %c% EQU 3 goto Leggings.Inv
+if %c% EQU 4 goto Boots.Inv
+if %c% EQU 5 goto Inventory
+goto Armor.Inv
+
+:Helmets.Inv
+cls
+echo.
+echo What would you like to look at?
+echo.
+echo 1) Hide Helmet
+echo 2) Bronze Helmet
+echo 3) Iron Helmet
+echo 4) Dragon Helmet
+echo 5) Energy Helmet
+echo 6) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto HideHelm.Inv
+if %c% EQU 2 goto BronzeHelm.Inv
+if %c% EQU 3 goto IronHelm.Inv
+if %c% EQU 4 goto DragonHelm.Inv
+if %c% EQU 5 goto EnergyHelm.Inv
+if %c% EQU 6 goto Armor.Inv
+goto Helmets.Inv
+
+:HideHelm.Inv
+set destination=HideHelm.Inv
+cls
+echo.
+echo This is everything about your Hide Helmet.
+echo.
+echo Bought: %HideHelmB%
+echo Equipped: %HideHelmE%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Helmet
+echo 2) Buy Helmet
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto HideHelm.Equip
+if %c% EQU 2 goto HideHelm.Buy
+if %c% EQU 3 goto Helmets.Inv
+goto HideHelm.Inv
+
+:BronzeHelm.Inv
+set destination=BronzeHelm.Inv
+cls
+echo.
+echo This is everything about your Bronze Helmet.
+echo.
+echo Bought: %BronzeHelmB%
+echo Equipped: %BronzeHelmE%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Helmet
+echo 2) Buy Helmet
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto BronzeHelm.Equip
+if %c% EQU 2 goto BronzeHelm.Buy
+if %c% EQU 3 goto Helmets.Inv
+goto BronzeHelm.Inv
+
+:IronHelm.Inv
+set destination=IronHelm.Inv
+cls
+echo.
+echo This is everything about your Iron Helmet.
+echo.
+echo Bought: %IronHelmB%
+echo Equipped: %IronHelmE%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Helmet
+echo 2) Buy Helmet
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto IronHelm.Equip
+if %c% EQU 2 goto IronHelm.Buy
+if %c% EQU 3 goto Helmets.Inv
+goto IronHelm.Inv
+
+:DragonHelm.Inv
+set destination=DragonHelm.Inv
+cls
+echo.
+echo This is everything about your Dragon Hide Helmet.
+echo.
+echo Bought: %DragonHelmB%
+echo Equipped: %DragonHelmE%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Helmet
+echo 2) Buy Helmet
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto DragonHelm.Equip
+if %c% EQU 2 goto DragonHelm.Buy
+if %c% EQU 3 goto Helmets.Inv
+goto DragonHelm.Inv
+
+:EnergyHelm.Inv
+set destination=EnergyHelm.Inv
+cls
+echo.
+echo This is everything about your Energy Helmet.
+echo.
+echo Bought: %EnergyHelmB%
+echo Equipped: %EnergyHelmE%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Helmet
+echo 2) Buy Helmet
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto EnergyHelm.Equip
+if %c% EQU 2 goto EnergyHelm.Buy
+if %c% EQU 3 goto Helmets.Inv
+goto EnergyHelm.Inv
+
+:HideHelm.Equip
+set destination=HideHelm.Equip
+cls
+if %HideHelmB% EQU No goto DNH
+if %HideHelmE% EQU Yes goto AE
+if %BronzeHelmE% EQU Yes goto Helmet.Unequip
+if %IronHelmE% EQU Yes goto Helmet.Unequip
+if %DragonHelmE% EQU Yes goto Helmet.Unequip
+if %EnergyHelmE% EQU Yes goto Helmet.Unequip
+echo.
+set /a HelmA+=%HideHelmA%
+set /a Armor+=%HelmA%
+set HideHelmE=Yes
+echo You have Equipped the Hide Helmet!
+echo You now have an extra 20 Armor.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Helmets.Inv
+
+:BronzeHelm.Equip
+set destination=BronzeHelm.Equip
+cls
+if %BronzeHelmB% EQU No goto DNH
+if %HideHelmE% EQU Yes goto Helmet.Unequip
+if %BronzeHelmE% EQU Yes goto AE
+if %IronHelmE% EQU Yes goto Helmet.Unequip
+if %DragonHelmE% EQU Yes goto Helmet.Unequip
+if %EnergyHelmE% EQU Yes goto Helmet.Unequip
+echo.
+set /a HelmA+=%BronzeHelmA%
+set /a Armor+=%HelmA%
+set HideHelmE=Yes
+echo You have Equipped the Bronze Helmet!
+echo You now have an extra 40 Armor.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Helmets.Inv
+
+:IronHelm.Equip
+set destination=IronHelm.Equip
+cls
+if %HideHelmB% EQU No goto DNH
+if %HideHelmE% EQU Yes goto Helmet.Unequip
+if %BronzeHelmE% EQU Yes goto Helmet.Unequip
+if %IronHelmE% EQU Yes goto AE
+if %DragonHelmE% EQU Yes goto Helmet.Unequip
+if %EnergyHelmE% EQU Yes goto Helmet.Unequip
+echo.
+set /a HelmA+=%IronHelmA%
+set /a Armor+=%HelmA%
+set IronHelmE=Yes
+echo You have Equipped the Iron Helmet!
+echo You now have an extra 60 Armor.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Helmets.Inv
+
+:DragonHelm.Equip
+set destination=DragonHelm.Equip
+cls
+if %DragonHelmB% EQU No goto DNH
+if %HideHelmE% EQU Yes goto Helmet.Unequip
+if %BronzeHelmE% EQU Yes goto Helmet.Unequip
+if %IronHelmE% EQU Yes goto Helmet.Unequip
+if %DragonHelmE% EQU Yes goto AE
+if %EnergyHelmE% EQU Yes goto Helmet.Unequip
+echo.
+set /a HelmA+=%DragonHelmA%
+set /a Armor+=%HelmA%
+set DragonHelmE=Yes
+echo You have Equipped the Dragon Helmet!
+echo You now have an extra 80 Armor.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Helmets.Inv
+
+:EnergyHelm.Equip
+set destination=EnergyHelm.Equip
+cls
+if %EnergyHelmB% EQU No goto DNH
+if %HideHelmE% EQU Yes goto Helmet.Unequip
+if %BronzeHelmE% EQU Yes goto Helmet.Unequip
+if %IronHelmE% EQU Yes goto Helmet.Unequip
+if %DragonHelmE% EQU Yes goto Helmet.Unequip
+if %EnergyHelmE% EQU Yes goto AE
+echo.
+set /a HelmA+=%EnergyHelmA%
+set /a Armor+=%HelmA%
+set EnergyHelmE=Yes
+echo You have Equipped the Energy Helmet!
+echo You now have an extra 100 Armor.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Helmets.Inv
+
+:Helmet.Unequip
+cls
+set HelmetE=Nothing
+set HideHelmE=No
+set BronzeHelmE=No
+set IronHelmE=No
+set DragonHelmE=No
+set EnergyHelmE=No
+set /a Armor-=%HelmA%
+set /a HelmA-=%HelmA%
+goto %destination%
+
+:Chestpieces.Inv
+cls
+echo.
+echo What would you like to look at?
+echo.
+echo 1) Hide Chestpieces
+echo 2) Bronze Chestpieces
+echo 3) Iron Chestpieces
+echo 4) Dragon Chestpieces
+echo 5) Energy Chestpieces
+echo 6) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto HideChest.Inv
+if %c% EQU 2 goto BronzeChest.Inv
+if %c% EQU 3 goto IronChest.Inv
+if %c% EQU 4 goto DragonChest.Inv
+if %c% EQU 5 goto EnergyChest.Inv
+if %c% EQU 6 goto Armor.Inv
+goto Chestpieces.Inv
+
+:HideChest.Inv
+set destination=HideChest.Inv
+cls
+echo.
+echo This is everything about your Hide Chestpiece.
+echo.
+echo Bought: %HideChestB%
+echo Equipped: %HideChestE%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Chest
+echo 2) Buy Chest
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto HideChest.Equip
+if %c% EQU 2 goto HideChest.Buy
+if %c% EQU 3 goto Chestpieces.Inv
+goto HideChest.Inv
+
+:BronzeChest.Inv
+set destination=BronzeChest.Inv
+cls
+echo.
+echo This is everything about your Bronze Chestpiece.
+echo.
+echo Bought: %BronzeChestB%
+echo Equipped: %BronzeChestE%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Chest
+echo 2) Buy Chest
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto BronzeChest.Equip
+if %c% EQU 2 goto BronzeChest.Buy
+if %c% EQU 3 goto Chestpieces.Inv
+goto BronzeChest.Inv
+
+:IronChest.Inv
+set destination=IronChest.Inv
+cls
+echo.
+echo This is everything about your Iron Chestpiece.
+echo.
+echo Bought: %IronChestB%
+echo Equipped: %IronChestE%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Chest
+echo 2) Buy Chest
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto IronChest.Equip
+if %c% EQU 2 goto IronChest.Buy
+if %c% EQU 3 goto Chestpieces.Inv
+goto IronChest.Inv
+
+:DragonChest.Inv
+set destination=DragonChest.Inv
+cls
+echo.
+echo This is everything about your Dragon Chestpiece.
+echo.
+echo Bought: %DragonChestB%
+echo Equipped: %DragonChestE%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Chest
+echo 2) Buy Chest
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto DragonChest.Equip
+if %c% EQU 2 goto DragonChest.Buy
+if %c% EQU 3 goto Chestpieces.Inv
+goto DragonChest.Inv
+
+:EnergyChest.Inv
+set destination=EnergyChest.Inv
+cls
+echo.
+echo This is everything about your Energy Chestpiece.
+echo.
+echo Bought: %EnergyChestB%
+echo Equipped: %EnergyChestE%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Equip Chest
+echo 2) Buy Chest
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto EnergyChest.Equip
+if %c% EQU 2 goto EnergyChest.Buy
+if %c% EQU 3 goto Chestpieces.Inv
+goto EnergyChest.Inv
+
+:HideChest.Equip
+set destination=HideChest.Equip
+cls
+if %HideChestB% EQU No goto DNH
+if %HideChestE% EQU Yes goto AE
+if %BronzeChestE% EQU Yes goto Chest.Unequip
+if %IronChestE% EQU Yes goto Chest.Unequip
+if %DragonChestE% EQU Yes goto Chest.Unequip
+echo.
+set /a ChestA+=%HideChestA%
+set /a Armor+=%ChestA%
+set HideChestE=Yes
+echo You have Equipped the Hide Chestpiece!
+echo You now have an extra 40 Armor.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Chestpieces.Inv
+
+:BronzeChest.Equip
+set destination=BronzeChest.Equip
+cls
+if %BronzeChestB% EQU No goto DNH
+if %HideChestE% EQU Yes goto Chest.Unequip
+if %BronzeChestE% EQU Yes goto AE
+if %IronChestE% EQU Yes goto Chest.Unequip
+if %DragonChestE% EQU Yes goto Chest.Unequip
+if %EnergyChestE% EQU Yes goto Chesdt.Unequip
+echo.
+set /a ChestA+=%BronzeChestA%
+set /a Armor+=%ChestA%
+set BronzeChestE=Yes
+echo You have Equipped the Bronze Chestpiece!
+echo You now have an extra 85 Armor.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Chestpieces.Inv
+
+:IronChest.Equip
+set destination=BronzeChest.Equip
+cls
+if %IronChestB% EQU No goto DNH
+if %HideChestE% EQU Yes goto Chest.Unequip
+if %BronzeChestE% EQU Yes goto Chest.Unequip
+if %IronChestE% EQU Yes goto Chest.Unequip
+if %DragonChestE% EQU Yes goto Chest.Unequip
+if %IronChestE% EQU Yes goto AE
+echo.
+set /a ChestA+=%BronzeChestA%
+set /a Armor+=%ChestA%
+set BronzeChestE=Yes
+echo You have Equipped the Bronze Chestpiece!
+echo You now have an extra 85 Armor.
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Chestpieces.Inv
+
+:AE
+cls
+echo.
+echo That is already Equipped!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Inventory
+echo 3) Shop
+echo 4) Fight
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Inventory
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto PreBattle
+goto AE
+
+:Food.Inv
+cls
+echo Health: %HP% Max Health: %MaxHP% Energy: %Energy%
+echo.
+echo 1) Eat Bread \ You have %Bread% Bread \ 20 Health \ 15 Energy 
+echo 2) Eat Potato \ You have %Potatos% Potatos \ 40 Health \ 35 Energy
+echo 3) Eat Orange \ You have %Oranges% Oranges \ 55 Health \ 45 Energy
+echo 4) Eat Apple \ You have %Apples% Apples \ 75 Health \ 60 Energy
+echo 5) Eat Stew \ You have %Stew% Stew \ 100 Health \ 80 Energy
+echo 6) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Bread.Eat
+if %c% EQU 2 goto Potato.Eat
+if %c% EQU 3 goto Orange.Eat
+if %c% EQU 4 goto Apple.Eat
+if %c% EQU 5 goto Stew.Eat
+if %c% EQU 6 goto Inventory
+goto Food.Inv
+
+:Bread.Eat
+if %Bread% LEQ 0 goto DNH
+set /a Energy+=15
+if %Energy% GTR %MaxEnergy% (
+	set Energy=%MaxEnergy%
+	cls
+	echo You can not increase your Energy anymore!
+	echo Use your Energy by increasing your Skills!
+	ping local host -n 4 >nul
+)
+set /a HP+=20
+if %HP% GTR %MaxHP% (
+	set HP=%MaxHP%
+	cls
+	echo You can not increase your Health anymore!
+	echo Go Fight Monsters!
+	ping local host -n 4 >nul
+)
+cls 
+set /a Bread-=1
+echo You have eaten Bread!
+echo You have gained 20 Health and 15 Energy.
+echo You now have %HP% Health and %Energy% Energy!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Food.Inv
+
+:Potato.Eat
+cls
+if %Potatos% LEQ 0 goto DNH
+echo.
+set /a Energy+=35
+if %Energy% GTR %MaxEnergy% (
+	set Energy=%MaxEnergy%
+	cls
+	echo You can not increase your Energy anymore!
+	echo Use your Energy by increasing your Skills!
+	ping local host -n 4 >nul
+)
+set /a HP+=40
+if %HP% GTR %MaxHP% (
+	set HP=%MaxHP%
+	cls
+	echo You can not increase your Health anymore!
+	echo Go Fight Monsters!
+	ping local host -n 4 >nul
+)
+cls
+set /a Potatos-=1
+echo You have eaten a Potato!
+echo You have gained 40 Health and 35 Energy.
+echo You now have %HP% Health and %Energy% Energy!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Food.Inv
+
+:Orange.Eat
+cls
+if %Potatos% LEQ 0 goto DNH
+echo.
+set /a Energy+=45
+if %Energy% GTR %MaxEnergy% (
+	set Energy=%MaxEnergy%
+	cls
+	echo You can not increase your Energy anymore!
+	echo Use your Energy by increasing your Skills!
+	ping local host -n 4 >nul
+)
+set /a HP+=55
+if %HP% GTR %MaxHP% (
+	set HP=%MaxHP%
+	cls
+	echo You can not increase your Health anymore!
+	echo Go Fight Monsters!
+	ping local host -n 4 >nul
+)
+cls
+set /a Potatos-=1
+echo You have eaten an Orange!
+echo You have gained 55 Health and 45 Energy.
+echo You now have %HP% Health and %Energy% Energy!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Food.Inv
+
+:Apple.Eat
+cls
+if %Apples% LEQ 0 goto DNH
+echo.
+set /a Energy+=60
+if %Energy% GTR %MaxEnergy% (
+	set Energy=%MaxEnergy%
+	cls
+	echo You can not increase your Energy anymore!
+	echo Use your Energy by increasing your Skills!
+	ping local host -n 4 >nul
+)
+set /a HP+=75
+if %HP% GTR %MaxHP% (
+	set HP=%MaxHP%
+	cls
+	echo You can not increase your Health anymore!
+	echo Go Fight Monsters!
+	ping local host -n 4 >nul
+)
+cls 
+set /a Apples-=1
+echo You have eaten an Apple!
+echo You have gained 75 Health and 60 Energy.
+echo You now have %HP% Health and %Energy% Energy!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Food.Inv
+
+:Stew.Eat
+cls
+if %Stew% LEQ 0 goto DNH
+echo.
+set /a Energy+=80
+if %Energy% GTR %MaxEnergy% (
+	set Energy=%MaxEnergy%
+	cls
+	echo You can not increase your Energy anymore!
+	echo Use your Energy by increasing your Skills!
+	ping local host -n 4 >nul
+)
+set /a HP+=100
+if %HP% GTR %MaxHP% (
+	set HP=%MaxHP%
+	cls
+	echo You can not increase your Health anymore!
+	echo Go Fight Monsters!
+	ping local host -n 4 >nul
+)
+cls 
+set /a Stew-=1
+echo You have eaten a Stew!
+echo You have gained 100 Health and 80 Energy.
+echo You now have %HP% Health and %Energy% Energy!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Fight
+echo 3) Inventory
+echo 4) Shop
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto Merchant
+goto Food.Inv
+
+:Potions.Inv
+cls
+echo.
+echo What would you like to look at?
+echo.
+echo 1) Strength Potion
+echo 2) Health Potion
+echo 3) Speed Potion
+echo 4) Mana Potion
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto StrengthP.Inv
+if %c% EQU 2 goto HealthP.Inv
+if %c% EQU 3 goto SpeedP.Inv
+if %c% EQU 4 goto ManaP.Inv
+goto Potions.Inv
+
+:StrengthP.Inv
+cls
+echo.
+echo This potion doubles your damage for 1 round!
+echo.
+echo You have %StrengthP% of these.
+echo.
+echo What would you like to do?
+echo.
+echo 1) Buy Strength Potion
+echo 2) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto StrengthP.Buy
+if %c% EQU 2 goto Potions.Inv
+goto StrengthP.Inv
+
+:HealthP.Inv
+cls
+echo.
+echo This potion heals you 50 health during a battle.
+echo.
+echo You have %HealthP% of these.
+echo.
+echo What would you like to do?
+echo.
+echo 1) Buy Health Potion
+echo 2) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto HealthP.Buy
+if %c% EQU 2 goto Potions.Inv
+goto HealthP.Inv
+
+:SpeedP.Inv
+cls
+echo.
+echo This potion increase your dodge chance by 30% for one round.
+echo.
+echo You have %SpeedP% of these.
+echo.
+echo What would you like to do?
+echo.
+echo 1) Buy Speed Potion
+echo 2) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto SpeedP.Buy
+if %c% EQU 2 goto Potions.Inv
+goto SpeedP.Inv
+
+:ManaP.Inv
+cls
+echo.
+echo This potion increases your mana by 50 points.
+echo.
+echo You have %ManaP% of these.
+echo.
+echo What would you like to do?
+echo.
+echo 1) Buy Mana Potion
+echo 2) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto ManaP.Buy
+if %c% EQU 2 goto Potions.Inv
+goto ManaP.Inv
+
+:Magic.Inv
+cls
+echo.
+echo What would you like to look at?
+echo.
+echo 1) Pure Damage Spell
+echo 2) Freezing Spell
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PureDSpell.Inv
+if %c% EQU 2 goto FreezeSpell.Inv
+if %c% EQU 3 goto Inventory
+goto Magic.Inv
+
+:PureDSpell.Inv
+cls
+echo.
+echo Bought: %PureDSpellB%
+echo Tier: %PureDSpellTier%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Buy Pure Damage Spell
+echo 2) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PureDSpell.Buy
+if %c% EQU 2 goto Magic.Inv
+goto PureDSpell.Inv
+
+:FreezeSpell.Inv
+cls
+echo.
+echo Bought: %FreezeSpellB%
+echo Tier: %FreezeSpellTier%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Buy Freeze Spell
+echo 2) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto FreezeSpell.Buy
+if %c% EQU 2 goto Magic.Inv
+goto FreezeSpell.Inv
+
+:DNH
+cls
+echo.
+echo You have not bought this item!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Shop
+echo 2) Home
+echo 3) Inventory
+echo 4) Fight
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Merchant
+if %c% EQU 2 goto Home
+if %c% EQU 3 goto Inventory
+if %c% EQU 4 goto PreBattle
+goto DNH
+
+:Crafting
+cls
+echo.
+echo Here are your crafting resources.
+echo.
+echo Trollskin: %Trollskin%
+echo Giants Eyes: %GiantsEye%
+echo Magic Residue: %MagicResidue%
+echo Magic Cloth: %MagicCloth%
+echo Water Essence: %WaterEssence%
+echo Rotted Flesh: %RottedFlesh%
+echo Ectoplasm: %Ectoplasm%
+echo.
+echo What would you like to craft?
+echo.
+echo 1) Weapon
+echo 2) Armor
+echo 3) Spells
+echo 4) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Weapon.Crafting
+if %c% EQU 2 goto Armor.Crafting
+if %c% EQU 3 goto Spells.Crafting
+if %c% EQU 4 goto Inventory
+goto Crafting
+
+:Stats
+cls
+echo.
+echo Here are your main stats!
+echo.
+echo Gold: %Gold% \ Gold Earned: %goldEarned%
+echo Health: %HP% \ Max Health: %MaxHP%
+echo Level: %Level% \ Total XP: %XP%
+echo XP Until Level Up: %xptill% 
+echo Dodge Chance: %Dodgedisplay%
+echo Monsters Killed: %Bodycount%
+echo Trolls Killed: %trollsKilled% \ Giants Killed: %giantsKilled% 
+echo Sorcerers Killed: %sorcerersKilled% \ Mages Killed: %magesKilled%
+echo Elementals Destroyed: %elementalsKilled% \ Zombies Returned: %zombiesKilled%
+echo Ghosts Dissipated: %ghostsKilled%
+echo.
+echo What would you like to view?
+echo.
+echo 1) Weapon Stats
+echo 2) Armor Stats
+echo 3) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Weapon.Stats
+if %c% EQU 2 goto Armor.Stats
+if %c% EQU 3 goto Inventory
+goto Stats
+
+:Weapon.Stats
+cls
+echo.
+echo These are your weapon stats.
+echo.
+echo Fist Kills: %FistKills%
+echo Dagger Kills: %DaggerKills%
+echo Sword Kills: %SwordKills%
+echo Spear Kills: %SpearKills%
+echo Warhammer Kills: %WarhammerKills%
+echo Battleaxe Kills: %BattleaxeKills%
+echo.
+echo What would you like to view?
+echo.
+echo 1) Main Stats
+echo 2) Armor Stats
+echo 3) Back
+echo.
+set /p c=Enter:
+
+if %c% EQU 1 goto Stats
+if %c% EQU 2 goto Armor.Stats
+if %c% EQU 3 goto Inventory
+goto Weapon.Stats
+
+:Skills
+set WaterBDodge=Neutral
+set ArrowDodge=Neutral
+set BulletDodge=Neutral
+cls
+echo.
+echo Which skill would you like to do?
+echo.
+echo 1) Improve Criticals
+echo 2) Improve Dodging
+echo 3) Spend Skill Points
+echo 4) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto CriticalChoice
+if %c% EQU 2 goto Dodge.Skills
+if %c% EQU 4 goto Home
+goto Skills
+
+:Dodge.Skills
+if %WaterBDodge% EQU True set /a Dodgeskill-=1
+if %ArrowDodge% EQU True set /a Dodgeskill-=3
+if %BulletDodge% EQU True set /a Dodgeskill-=5
+if %Dodgeskill% LEQ 0 (
+set /a Dodgeskill=1
+set WaterBDodge=Neutral
+set ArrowDodge=Neutral
+set BulletDodge=Neutral
+echo.
+echo You cannot upgrade your Dodge anymore!
+ping localhost -n 3 >nul
+)
+cls
+echo.
+echo Energy: %Energy%
+echo.
+echo What would you like to do?
+echo.
+echo 1) Dodge Water Balloons \ Energy 25 \ Can increase by 1
+if %WaterBDodge% EQU False echo Fail!
+if %WaterBDodge% EQU True echo Good Job!
+if %WaterBDodge% EQU True echo You have Increased your Dodge skill by 1!
+echo 2) Dodge Arrows \ Energy 40 \ Can increase by 3
+if %ArrowDodge% EQU False echo Fail!
+if %ArrowDodge% EQU True echo Good Job!
+if %ArrowDodge% EQU True echo You have Increased your Dodge skill by 3!
+echo 3) Dodge Bullets \ Energy 70 \ Can increase by 5
+if %BulletDodge% EQU False echo Fail!
+if %BulletDodge% EQU True echo Good Job!
+if %BulletDodge% EQU True echo You have Increased your Dodge skill by 5!
+echo 4) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Dodge.WaterB
+if %c% EQU 2 goto Dodge.Arrow
+if %c% EQU 3 goto Dodge.Bullets
+if %c% EQU 4 goto Skills
+goto Skills
+
+:Dodge.WaterB
+if %Energy% LEQ 24 goto NEE
+set /a Energy-=25
+cls
+set /a DodgeWB=%random% %% 5-1/32768+1
+if %DodgeWB% EQU 1 set WaterBDodge=True
+if %DodgeWB% NEQ 1 set WaterBDodge=False
+goto Dodge.Skills
+
+:Dodge.Arrow
+if %Energy% LEQ 39 goto NEE
+set /a Energy-=40
+cls
+set /a DodgeA=%random% %% 30-1/32768+1
+if %DodgeA% EQU 1 set ArrowDodge=True
+if %DodgeA% NEQ 1 set ArrowDodge=False
+goto Dodge.Skills
+
+:Dodge.Bullet
+if %Energy% LEQ 69 goto NEE
+set /a Energy-=70
+cls
+set /a DodgeB=%random% %% 80-1/32768+1
+if %DodgeB% EQU 1 set BulletDodge=True
+if %DodgeB% NEQ 1 set BulletDodge=False
+goto Dodge.Skills
+
+:CriticalChoice
+cls
+echo.
+echo What would you like to increase?
+echo.
+echo 1) Crit Chance
+echo 2) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto CritChance.Skills
+if %c% EQU 2 goto Skills
+goto CriticalChoice
+
+:CritChance.Skills
+cls
+echo.
+echo What would you like to do?
+echo.
+echo 1) Practice on a dummy. \ Energy 25 \ Can Increase by 1
+echo 2) Practice Swordfight. \ Energy 40 \ Can Increase by 3
+echo 3) Real Swordfight (Can lose health) \ Energy 70 \ Can Increase by 5
+echo 4) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Dummy.Crit
+if %c% EQU 2 goto PSwordfight.Crit
+if %c% EQU 3 goto RSwordfight.Crit
+if %c% EQU 4 goto Critical.Skills
+goto CritChance.Skills
+
+:Skills.Buy
+cls
+echo.
+echo Skillpoints: %Skillpoints%
+echo.
+echo What would you like to spend your skill point(s) on?
+echo.
+echo 1) Dodging (Increases dodge chance by 3%)
+echo 2) Criticals (Increases Critical Chance by 3%)
+echo 3) Go Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Dodge.Increase
+if %c% EQU 2 goto Critical.Increase
+if %c% EQU 3 goto Skills
+goto Skills.Buy
+
+:Dodge.Increase
+cls
+if %Skillpoints% LEQ 0 goto DNH
+if %Dodgeskill% LEQ 0 (
+echo.
+echo You cannot upgrade dodging anymore!
+echo.
+ping local host -n 3 >nul
+goto Skills.Buy
+)
+set /a Skillpoints-=1
+set /a Dodgeskill-=3
+echo.
+echo You have spent a skill point and increased your
+echo dodge chance by 3%!
+echo.
+echo What would you like to do?
+echo.
+echo 1) Go Home
+echo 2) Fight
+echo 3) Shop
+echo 4) Inventory 
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto PreBattle
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto Inventory
+if %c% EQU 5 goto Skills.Buy
+goto Skills.Buy
+
+:NEE
+cls
+echo.
+echo You do not have enough Energy!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Skills
+echo 2) Home
+echo 3) Shop
+echo 4) Inventory
+echo 5) Fight
+echo. 
+set /p c=Enter: 
+
+if %c% EQU 1 goto Skills
+if %c% EQU 2 goto Home
+if %c% EQU 3 goto Merchant
+if %c% EQU 4 goto Inventory
+if %c% EQU 5 goto PreBattle
+goto NEE
+
+:Prebattle
+cls
+set DodgeA=No
+if %Level% GEQ 0 if %Level% LEQ 2 (
+set MHP=100
+set Matk=5
+set goldgain=9
+set xpgain=10
+set Mlevel=1
+)
+if %Level% GEQ 3 if %Level% LEQ 5 (
+set Mlevel=2
+set /a MHP=100+%MLevel%*20
+set Matk=10
+set goldgain=12
+set xpgain=20
+)
+if %Level% GEQ 6 if %Level% LEQ 8 (
+set Mlevel=3
+set /a MHP=100+%MLevel%*30
+set Matk=15
+set goldgain=15
+set xpgain=30
+)
+if %Level% GEQ 9 if %Level% LEQ 11 (
+set Mlevel=4
+set /a MHP=100+%MLevel%*40
+set Matk=20
+set goldgain=18
+set xpgain=40
+)
+if %Level% GEQ 12 if %Level% LEQ 14 (
+set Mlevel=5
+set /a MHP=100+%MLevel%*50
+set Matk=25
+set goldgain=21
+set xpgain=50
+)
+goto npcchoose
+
+:npcchoose
+set /a npc=%random% %% 7+1
+if %npc% EQU 1 set Monster=Troll
+if %npc% EQU 2 set Monster=Giant
+if %npc% EQU 3 set Monster=Sorcerer
+if %npc% EQU 4 set Monster=Mage
+if %npc% EQU 5 set Monster=Elemental
+if %npc% EQU 6 set Monster=Zombie
+if %npc% EQU 7 set Monster=Ghost
+echo.
+echo You have encountered a level %Mlevel% %Monster%!
+echo.
+ping localhost -n 2 >nul
+goto encounter
+
+:PotionCheck
+if %StrengthPUse% EQU Yes (
+set StrengthPUse=False
+set /a Atk-=%Atk%/2
+)
+if %SpeedPUse% EQU Yes (
+set StrengthPUse=False
+set /a Dodgeskill+=30
+)
+goto MagicCheck
+
+:MagicCheck
+cls
+if %PureDSpellUse% EQU True (
+	set Atk-=%PureDSpellD%
+	set PureDSpellUse=False
+)
+if %FreezeSpellUse% EQU True (
+    set /a FroundsLeft-=1
+	if !FroundsLeft! LEQ 0 set FreezeSpellUse=False
+)
+goto encounter
+
+:encounter
+cls
+if %DodgeA% EQU Yes echo You have dodged an attack!
+if %FreezeSpellUse% EQU Yes echo You have used the Freeze spell and have %FroundsLeft%.
+set FreezeSpellUse=No
+set /a DodgeDisplay=100-%Dodgeskill%
+echo.
+echo Your Health: %HP% \ Dodge Chance Percentage: !DodgeDisplay! \ Mana: %Mana%
+echo %Monster% Health: %MHP%
+echo.
+echo What will you do?
+echo.
+echo 1) Attack
+echo 2) Potions
+echo 3) Magic
+echo 4) Flee
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PlayerAttack
+if %c% EQU 2 goto Potions.BInv
+if %c% EQU 3 goto Magic.BInv
+if %c% EQU 4 goto Flee
+goto encounter
+
+:Potions.BInv
+cls
+echo.
+echo Which one would you like to use?
+echo.
+echo 1) Strength Potion
+echo 2) Health Potion
+echo 3) Speed Potion
+echo 4) Mana Potion
+echo 5) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto StrengthP.Use
+if %c% EQU 2 goto HealthP.Use
+if %c% EQU 3 goto SpeedP.Use
+if %c% EQU 4 goto ManaP.Use
+if %c% EQU 5 goto encounter
+goto Potions.BInv
+
+:StrengthP.Use
+if %StrengthP% LEQ 0 goto BDNH
+set StrengthPUse=Yes
+cls
+echo.
+echo You have used a Strength potion!
+echo You will do double damage!
+set /a Atk+=%Atk%
+ping localhost -n 2 >nul
+goto Potions.BInv
+
+:SpeedP.Use
+if %SpeedP% LEQ 0 goto BDNH
+set SpeedPUse=Yes
+cls
+echo.
+echo You have used a Speed potion!
+echo You have a 30% extra chance to dodge!
+set /a Dodgeskill-=30
+if %Dodgeskill% GTR 98 set Dodgeskill=98
+ping localhost -n 2 >nul
+goto Potions.BInv
+
+:HealthP.Use
+if %HealthP% LEQ 0 goto BDNH
+cls
+echo.
+echo You have used a Health potion!
+set /a HP+=50
+ping localhost -n 2 >nul
+goto Potions.BInv
+
+:ManaP.Use
+if %ManaP% LEQ 0 goto BDNH
+cls
+echo.
+echo You have used a Mana potion!
+set /a Mana+=50
+ping localhost -n 2 >nul
+goto Potions.BInv
+
+:BDNH
+cls
+echo.
+echo You do not have that item!
+echo.
+echo 1) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto encounter
+goto BDNH
+
+:Magic.BInv
+cls
+echo Mana: %Mana%
+echo.
+echo What Magic Would you like to use?
+echo.
+if !PureDSpellTier! EQU 1 echo 1) Pure Damage Spell (20 Mana)
+if !PureDSpellTier! EQU 2 echo 1) Pure Damage Spell (25 Mana)
+if !PureDSpellTier! EQU 3 echo 1) Pure Damage Spell (30 Mana)
+if !FreezeSpellTier! EQU 1 echo 2) Freeze Spell (50 Mana)
+if !FreezeSpellTier! EQU 2 echo 2) Freeze Spell (60 Mana)
+if !FreezeSpellTier! EQU 3 echo 2) Freeze Spell (70 Mana)
+echo 3) Back
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PureDSpell.Use
+if %c% EQU 2 goto FreezeSpell.Use
+if %c% EQU 3 goto encounter
+goto Magic.BInv
+
+:PureDSpell.Use
+cls
+if %PureDSpellB% EQU No goto BDNH
+if %PureDSpellTier% EQU 1 (
+	echo.
+	set PureDSpellD=50
+	set /a Mana-=20
+	echo You have used the Pure Damage Spell!
+	echo You do 50 extra damage!
+	set /a MHP-=!PureDSpellD!
+)
+if %PureDSpellTier% EQU 2 (
+	echo.
+	set PureDSpellD=100
+	set /a Mana-=25
+	echo You have used the Pure Damage Spell!
+	echo You do 100 Extra Damage!
+	set /a MHP-=!PureDSpellD!
+)
+if %PureDSpellTier% EQU 3 (
+	echo.
+	set /a Mana-=30
+	set PureDSpellD=150
+	echo You have used the Pure Damage Spell!
+	echo You do 150 Extra Damage!
+	echo.
+	set /a MHP-=!PureDSpellD!
+)
+ping localhost -n 2 >nul
+goto PlayerAttack
+
+:FreezeSpell.Use
+cls
+if %FreezeSpellUse% EQU True goto SAA
+if %FreezeSpellB% EQU No goto BDNH
+if %FreezeSpellTier% EQU 1 (
+	echo.
+	set /a Mana-=50
+	echo Your Enemy is Frozen for 2 Rounds!
+	set FroundsLeft=2
+	ping local host -n 5 >nul
+)
+
+:PlayerAttack
+cls
+set /a MHP-=%Atk%
+if %MHP% LEQ 0 goto %Monster%
+goto MonsterAttack
+
+:MonsterAttack
+set /a Dodge=%random% %% %Dodgeskill%-100/32768+1
+if %Dodge% EQU 1 set DodgeA=Yes
+if %Dodge% NEQ 1 set DodgeA=No
+if %DodgeA% EQU No if %Armor% LEQ 0 (
+	set /a HP-=%MAtk%
+)
+if %DodgeA% EQU No if %Armor% GEQ 1 (
+	set /a dmgReduction=%Armor%/6*1.5
+	set /a MDmg=!Matk!-!dmgReduction!
+	set /a dmgReductionTotal+=!dmgReduction!
+	if !MDmg! LEQ 0 set	/a MDmg=0
+	set /a HP-=!MDmg!
+)
+if %HP% LEQ 0 goto Dead
+goto PotionCheck
+
+:Troll
+cls
+set /a trollsKilled+=1
+set /a tdrop=%random% %% 3-1/32767+1
+if %tdrop% EQU 1 (
+	set /a Trollskin+=1
+	echo You have defeated a Troll and collected Trollskin!
+	ping localhost -n 2 >nul
+	goto WeaponCheck
+	)
+if %tdrop% NEQ 1 goto WeaponCheck
+
+:Giant
+cls
+set /a giantsKilled+=1
+set /a gdrop=%random% %% 4-1/32767+1
+if %gdrop% EQU 1 (
+	set /a GiantsEye+=1
+	echo You have defeated a Giant and collected a Giant's Eye!
+	ping localhost -n 2 >nul
+	goto WeaponCheck
+	)
+if %gdrop% NEQ 1 goto WeaponCheck
+
+:Sorcerer
+cls
+set /a sorcerersKilled+=1
+set /a sdrop=%random% %% 6-1/32767+1
+if %sdrop% EQU 1 (
+	set /a MagicResidue+=1
+	echo You have defeated a Sorcerer and collected Magic Residue!
+	ping localhost -n 2 >nul
+	goto WeaponCheck
+	)
+if %sdrop% NEQ 1 goto WeaponCheck
+
+
+:Mage
+cls
+set /a magesKilled+=1
+set /a mdrop=%random% %% 7-1/32767+1
+if %mdrop% EQU 1 (
+	set /a MagicCloth+=1
+	echo You have defeated a Mage and collected Magic cloth!
+	ping localhost -n 2 >nul
+	goto WeaponCheck
+	)
+if %mdrop% NEQ 1 goto WeaponCheck
+
+
+:Elemental
+cls
+set elementalsKilled+=1
+set /a edrop=%random% %% 8-1/32767+1
+if %edrop% EQU 1 (
+	set /a WaterEssence+=1
+	echo You have defeated an Elemental and collected Water Essence!
+	ping localhost -n 2 >nul
+	goto WeaponCheck
+	)
+if %edrop% NEQ 1 goto WeaponCheck
+
+
+:Zombie
+cls
+set /a zombiesKilled+=1
+set /a zdrop=%random% %% 5-1/32767+1
+if %zdrop% EQU 1 (
+	set /a RottedFlesh+=1
+	echo You have defeated a Zombie and collected Rotted Flesh!
+	ping localhost -n 2 >nul
+	goto WeaponCheck
+	)
+if %zdrop% NEQ 1 goto Gain
+
+
+:Ghost
+cls
+set /a ghostsKilled+=1
+set /a gdrop=%random% %% 10-1/32767+1
+if %gdrop% EQU 1 (
+	set /a Ectoplasm+=1
+	echo You have defeated a Ghost and collected Ectoplasm!
+	ping localhost -n 2 >nul
+	goto WeaponCheck
+	)
+if %gdrop% NEQ 1 goto WeaponCheck
+
+:WeaponCheck
+cls
+if %WeaponE% EQU Nothing set /a FistKills+=1
+if %WeaponE% EQU Dagger set /a DaggerKills+=1
+if %WeaponE% EQU Sword set /a SwordKills+=1
+if %WeaponE% EQU Spear set /a SpearKills+=1
+if %WeaponE% EQU Warhammer set /a WarhammerKills+=1
+if %WeaponE% EQU Battleaxe set /a BattleaxeKills+=1
+goto Gain
+
+:Flee
+cls
+echo.
+echo You have fled from the battle!
+echo.
+echo Where would you like to go?
+echo.
+echo 1) Home
+echo 2) Shop
+echo 3) Inventory
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto Home
+if %c% EQU 2 goto Merchant
+if %c% EQU 3 goto Inventory
+goto Flee
+
+:Gain
+cls
+echo.
+set /a Bodycount+=1
+set /a Gold+=%goldgain%
+set /a goldEarned+=%goldgain%
+set /a xp+=%xpgain%
+set /a xptill-=%xpgain%
+set /a xpEarned+=%xpgain%
+if %xptill% LEQ 0 goto Levelup
+echo XP Until Next Level: %xptill% \  Gold: %Gold%
+echo.
+echo You have defeated a %npc% and gained
+echo %goldgain% Gold and %xpgain% XP.
+echo.
+echo What would you like to do?
+echo.
+echo 1) Fight!
+echo 2) Go Home
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PreBattle
+if %c% EQU 2 goto Home
+goto Home
+
+:Levelup
+cls
+echo.
+echo You have leveled up!
+echo You have Earned a Skill Point!
+echo.
+set /a Level+=1
+set /a xptill=%Level%*100
+set /a MaxHP+=20
+set /a MaxEnergy+=10
+set Energy=%MaxEnergy%
+set HP=%MaxHP%
+set /a SkillPoints+=1
+if %Level% GEQ 2 (
+echo You have gained 50 Gold as a reward!
+set /a Gold+=50
+)
+echo You have Gained also an extra 20 Health and
+echo increased it to %MaxHP%!
+if %Level% EQU 1 (
+echo You have even increased your arcane abilties!
+echo Make sure to check the shop!
+)
+if %Level% EQU 5 (
+echo You have also increased your arcane abilties!
+echo Make sure to check the shop!
+)
+if %Level% EQU 10 (
+echo You have also increased your arcane abilties!
+echo Make sure to check the shop!
+)
+echo.
+echo What would you like to do?
+echo.
+echo 1) Fight!
+echo 2) Go Home
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto PreBattle
+if %c% EQU 2 goto Home
+goto Home
+
+:Dead
+cls
+echo.
+echo You have died!
+echo.
+echo What would you like to do?
+echo.
+echo 1) Restart
+echo 2) Go to the Menu
+echo 3) Load Last Checkpoint
+echo 4) Quit
+echo.
+set /p c=Enter: 
+
+if %c% EQU 1 goto newvars
+if %c% EQU 2 goto menu
+if %c% EQU 3 goto Loadgame
+if %c% EQU 4 goto Quit
+goto Dead 
